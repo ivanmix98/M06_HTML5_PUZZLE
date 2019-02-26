@@ -66,6 +66,9 @@ var emmagatzematge = {
     },
     netejar: function() {
         localStorage.clear();
+        var usuario = (document.getElementById('nom').value);
+       index = usuarios.indexOf(usuario);
+       usuarios.splice(usuario,1);
         emmagatzematge.esborrarTaula();
         emmagatzematge.mostrar();
     }
