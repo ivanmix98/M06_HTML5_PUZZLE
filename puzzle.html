@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="styles/puzzle.css">
     <script type="text/javascript" src="js/puzzle.js"></script>
     <script type="text/javascript" src="js/geolocalitzacio.js"></script>
+    <script type="text/javascript" src="js/indexedDB.js"></script>
 </head>
 <body onload="init();">
 <button onclick="shufflePuzzle()">Click me</button>
@@ -15,5 +16,9 @@
   </select>
 <canvas id="canvas"></canvas>
 <p id="support"></p>
+
+<a>Puntuació:</a>
+<input type="text" id="puntuacions">
+<button onclick="guardaPuntuacions()">Finalitzar Joc</button>
 </body>
 </html>

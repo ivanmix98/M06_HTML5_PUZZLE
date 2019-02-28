@@ -43,6 +43,8 @@ var emmagatzematge = {
             'nom': nom, 'nota': puntuacio
         };
 
+        magatzemObjsAlumnes.delete(nom);
+        emmagatzematge.esborrarTaula();
         magatzemObjsAlumnes.add(alumne);
         emmagatzematge.esborrarTaula();
         emmagatzematge.mostrar(magatzemObjsAlumnes);
@@ -81,11 +83,11 @@ var emmagatzematge = {
     }
 };
 
-document.getElementById('desar').   addEventListener('click', emmagatzematge.desar, false);
-document.getElementById('mostrar'). addEventListener('click', emmagatzematge.mostrar2, false);
-document.getElementById('esborrar').addEventListener('click', emmagatzematge.esborrarItem, false);
-document.getElementById('netejar'). addEventListener('click', emmagatzematge.netejar, false);
-//document.getElementById('desarPuntuacions').addEventListener('click', emmagatzematge.desarPuntuacions, false);
+//document.getElementById('desar').   addEventListener('click', emmagatzematge.desar, false);
+//document.getElementById('mostrar'). addEventListener('click', emmagatzematge.mostrar2, false);
+//document.getElementById('esborrar').addEventListener('click', emmagatzematge.esborrarItem, false);
+//document.getElementById('netejar'). addEventListener('click', emmagatzematge.netejar, false);
+document.getElementById('desarP').addEventListener('click', emmagatzematge.desarPuntuacions, false);
 
 peticioObertura.onerror = function (event) {
     alert("Problema!");

@@ -14,10 +14,28 @@ var _currentPiece;
 var _currentDropPiece;
  
 var _mouse;
+var puntuacio = 10000;
+
+window.setInterval(function(){
+    calculador_puntuacions();
+}, 1000);
+
+function calculador_puntuacions(){
+    puntuacio --;
+    document.getElementById('puntuacions').value = puntuacio;
+
+}
+
+function  guardaPuntuacions () {
+    let puntuacio = document.getElementById("puntuacions").value;
+    sessionStorage.setItem("puntuacions",puntuacio);
+    console.log("Puntuació" + puntuacio);
+    window.location.href = "finalitzarJoc.html";
+}
 
 function dimensionChange(){
 
-    var dimensio = document.getElementById("mySelect").value;
+    var dimensio = document.getElementById("mySelect").value = puntuacio;
 
     if(dimensio == '3x3'){
         PUZZLE_DIFFICULTY = 3;
@@ -108,7 +126,6 @@ function shufflePuzzle(){
             yPos += _pieceHeight;
         }
     }
-    document.onmousedown = onPuzzleClick;
 }
 
 function shuffleArray(o){

@@ -15,20 +15,20 @@
  */
 let usuarios = [];
 
-let emmagatzematge = {
+let emmagatzematgeWStg = {
     
     taula: document.getElementById('taula'),
     desar: function() {
 
-       
+
        var usuario = (document.getElementById('nom').value);
        
        if (usuarios.indexOf(usuario) === -1){
         usuarios.push(usuario);
         
         localStorage.setItem(usuario, 0);
-        emmagatzematge.esborrarTaula();
-        emmagatzematge.mostrar();
+        emmagatzematgeWStg.esborrarTaula();
+        emmagatzematgeWStg.mostrar();
        }
        else if(usuarios.indexOf(usuario) > -1){
            console.log(usuario + ' ja existeix');
@@ -49,11 +49,11 @@ let emmagatzematge = {
     netejar: function() {
         localStorage.clear();
         usuarios = [];
-        emmagatzematge.esborrarTaula();
-        emmagatzematge.mostrar();
+        emmagatzematgeWStg.esborrarTaula();
+        emmagatzematgeWStg.mostrar();
     }
 };
 
-emmagatzematge.mostrar();
-document.getElementById('desar').addEventListener('click',    emmagatzematge.desar, false);
-document.getElementById('netejar').addEventListener('click',  emmagatzematge.netejar, false);
+emmagatzematgeWStg.mostrar();
+document.getElementById('desar').addEventListener('click',    emmagatzematgeWStg.desar, false);
+document.getElementById('netejar').addEventListener('click',  emmagatzematgeWStg.netejar, false);
