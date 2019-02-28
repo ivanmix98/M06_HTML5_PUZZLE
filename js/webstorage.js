@@ -13,8 +13,8 @@
  * ORIGEN
  * Desenvolupament en entorn client. Escola del clot
  */
-var usuarios = [];
-var emmagatzematge = {
+let usuarios = [];
+let emmagatzematge = {
     
     taula: document.getElementById('taula'),
     desar: function() {
@@ -25,8 +25,7 @@ var emmagatzematge = {
        if (usuarios.indexOf(usuario) === -1){
         usuarios.push(usuario);
         
-        localStorage.setItem(usuario,
-        0);
+        localStorage.setItem(usuario, 0);
         emmagatzematge.esborrarTaula();
         emmagatzematge.mostrar();
        }
