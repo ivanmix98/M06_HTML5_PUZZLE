@@ -14,6 +14,7 @@
  * Desenvolupament en entorn client. Escola del clot
  */
 let usuarios = [];
+
 let emmagatzematge = {
     
     taula: document.getElementById('taula'),
@@ -38,7 +39,6 @@ let emmagatzematge = {
         for (var i = 0; i < localStorage.length; i++) {
             var fila = taula.insertRow(0);
             fila.insertCell(0).innerHTML = localStorage.key(i);
-            fila.insertCell(1).innerHTML = localStorage.getItem(localStorage.key(i));
         };
     },
     esborrarTaula: function() {
@@ -46,32 +46,14 @@ let emmagatzematge = {
             taula.deleteRow(0);
         }
     },
-    esborrarItem: function() {
-        var usuario = (document.getElementById('nom').value);
-        localStorage.removeItem(usuario);
-
-        if (usuarios.indexOf(usuario) === -1){
-            
-        }
-        else if(usuarios.indexOf(usuario) > -1) {
-            var indice = usuarios.indexOf(usuario);
-            usuarios.splice(indice,1);
-            
-        }
-        
-        emmagatzematge.esborrarTaula();
-        emmagatzematge.mostrar();
-        
-    },
     netejar: function() {
         localStorage.clear();
-        
-       usuarios = [];
+        usuarios = [];
         emmagatzematge.esborrarTaula();
         emmagatzematge.mostrar();
     }
-}
-document.getElementById('desar').addEventListener('click', emmagatzematge.desar, false);
-document.getElementById('esborrar').addEventListener('click', emmagatzematge.esborrarItem, false);
-document.getElementById('netejar').addEventListener('click', emmagatzematge.netejar, false);
+};
+
 emmagatzematge.mostrar();
+document.getElementById('desar').addEventListener('click',    emmagatzematge.desar, false);
+document.getElementById('netejar').addEventListener('click',  emmagatzematge.netejar, false);

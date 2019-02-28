@@ -47,6 +47,11 @@ var emmagatzematge = {
         };
 
     },
+    mostrar2: function(){
+        var magatzemObjsAlumnes = db.transaction("alumnes", "readwrite").objectStore("alumnes");
+        emmagatzematge.esborrarTaula();
+        emmagatzematge.mostrar(magatzemObjsAlumnes);
+    },
     esborrarTaula: function () {
         while (taula.rows.length > 0) {
             taula.deleteRow(0);
@@ -61,8 +66,10 @@ var emmagatzematge = {
     netejar: function () {
         emmagatzematge.esborrarTaula();
     }
-}
+};
+
 document.getElementById('desar').addEventListener('click', emmagatzematge.desar, false);
+document.getElementById('mostrar').addEventListener('click', emmagatzematge.mostrar2, false);
 document.getElementById('esborrar').addEventListener('click', emmagatzematge.esborrarItem, false);
 document.getElementById('netejar').addEventListener('click', emmagatzematge.netejar, false);
 
@@ -142,4 +149,3 @@ peticioObertura.onupgradeneeded = function (event) {
         };
     };
 };
-

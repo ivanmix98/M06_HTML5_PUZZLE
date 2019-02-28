@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="ca">
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
 
+</style>
 <head>
     <title>DAW2</title>
     <meta charset="utf-8" />
@@ -15,19 +20,25 @@
 <button id="login">Fes Login</button><br><br>
 <p>No tens compte? <a href="/registre.html">Registrat</a></p>
 
-<h1> IndexedDB</h1>
-<input type="text" id="nom" placeholder="nom" required>
+<button id="mostrar"><h3> Mostrar Puntuacions</h3></button><br><br>
+<table style="width: 100%">
+    <col width="100">
+    <col width="20">
+    <tr>
+        <th>Nom Jugador</th>
+        <th>Puntuació</th>
+    </tr>
+</table>
+<table id="taula"style="width: 100%">
+    <col width="100">
+    <col width="74">
+</table><br><br>
+
+<input type="text" id="nom"    placeholder="nom"  required>
 <input type="number" id="nota" placeholder="nota" required>
+
 <button id="desar">desa</button>
 <button id="esborrar">esborra</button>
 <button id="netejar">neteja</button>
-<table id="taula">
-</table>
 </body>
-
-
-
-
-
-
 </html>
