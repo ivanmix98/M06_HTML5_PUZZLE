@@ -7,6 +7,9 @@ let lon_Tokio = 35.6895000;
 let lat_NY = 40.6643;
 let lon_NY = -73.9385;
 
+let ciutatMesProperaOld="";
+let ciutatMesPropera="";
+
 navigator.geolocation.getCurrentPosition(obtenirLocalitzacio);
 
 var watchID =
@@ -23,9 +26,17 @@ function obtenirLocalitzacio(posicio) {
     let dist_Tokio = distancia(latitud,longitud,lat_Tokio,lon_Tokio);
     let dist_NY = distancia(latitud,longitud,lat_NY,lon_NY);
     console.log(" Distancia a Paris:" + dist_Paris + " Distancia a Tokio:" + dist_Tokio + " Distancia a NY:" + dist_NY);
-    if(dist_Paris <dist_Tokio  && dist_Paris < dist_NY)    console.log("Estic més aprop de Paris");
-    if(dist_Tokio < dist_Paris && dist_Tokio < dist_NY)    console.log("Estic més aprop de Tokio");
-    if(dist_NY    < dist_Paris && dist_NY    < dist_Tokio) console.log("Estic més aprop de New York");
+    if(dist_Paris <dist_Tokio  && dist_Paris < dist_NY)    ciutatMesPropera = "Paris";
+    if(dist_Tokio < dist_Paris && dist_Tokio < dist_NY)    ciutatMesPropera = "Tokio";
+    if(dist_NY    < dist_Paris && dist_NY    < dist_Tokio) ciutatMesPropera = "NewYork";
+
+    if(ciutatMesPropera != ciutatMesProperaOld){
+        if(ciutatMesPropera == "NewYork") init();
+        if(ciutatMesPropera == "Paris")   init2();
+        if(ciutatMesPropera == "Tokio")   init3();
+
+    }
+    ciutatMesProperaOld = ciutatMesPropera;
 }
 
 

@@ -32,7 +32,18 @@ function dimensionChange(){
 function init(){
     _img = new Image();
     _img.addEventListener('load',onImage,false);
-    _img.src = "/Images/paris.jpg";
+    _img.src = "Images/newyork.jpg";
+}
+
+function init2(){
+    _img = new Image();
+    _img.addEventListener('load',onImage,false);
+    _img.src = "Images/paris.jpg";
+}
+function init3(){
+    _img = new Image();
+    _img.addEventListener('load',onImage,false);
+    _img.src = "Images/tokyo.jpg";
 }
 
 function onImage(e){
@@ -76,9 +87,6 @@ function buildPieces(){
             yPos += _pieceHeight;
         }
     }
-
-    
-
 }
 
 function shufflePuzzle(){
@@ -107,4 +115,3 @@ function shuffleArray(o){
     for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 }
-
