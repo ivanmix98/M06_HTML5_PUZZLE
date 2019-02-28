@@ -67,7 +67,7 @@ var emmagatzematge = {
     netejar: function() {
         localStorage.clear();
         
-       usuarios.splice(1,10);
+       usuarios = [];
         emmagatzematge.esborrarTaula();
         emmagatzematge.mostrar();
     }
