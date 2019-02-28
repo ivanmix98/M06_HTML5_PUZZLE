@@ -1,19 +1,15 @@
-var PUZZLE_DIFFICULTY = 3;
-const PUZZLE_HOVER_TINT = '#009900';
+var numPeces = 3;
  
-var _canvas;
-var _stage;
+var canvas;
+var stage;
  
-var _img;
-var _pieces;
-var _puzzleWidth;
-var _puzzleHeight;
-var _pieceWidth;
-var _pieceHeight;
-var _currentPiece;
-var _currentDropPiece;
- 
-var _mouse;
+var imatge;
+var peca;
+var puzzleAmplada;
+var puzzleAltura;
+var pecaAmplada;
+var pecaAltura;
+
 var puntuacio = 10000;
 
 window.setInterval(function(){
@@ -35,57 +31,57 @@ function  guardaPuntuacions () {
 
 function dimensionChange(){
 
-    var dimensio = document.getElementById("mySelect").value = puntuacio;
+    var dimensio = document.getElementById("mySelect").value;
 
     if(dimensio == '3x3'){
-        PUZZLE_DIFFICULTY = 3;
+        numPeces = 3;
     }
     if(dimensio == '4x4'){
-        PUZZLE_DIFFICULTY = 4;
+        numPeces = 4;
     }
     onImage();
 }
 
 
 function init(){
-    _img = new Image();
-    _img.addEventListener('load',onImage,false);
-    _img.src = "Images/newyork.jpg";
+    imatge = new Image();
+    imatge.addEventListener('load',onImage,false);
+    imatge.src = "Images/newyork.jpg";
 }
 
 function init2(){
-    _img = new Image();
-    _img.addEventListener('load',onImage,false);
-    _img.src = "Images/paris.jpg";
+    imatge = new Image();
+    imatge.addEventListener('load',onImage,false);
+    imatge.src = "Images/paris.jpg";
 }
 function init3(){
-    _img = new Image();
-    _img.addEventListener('load',onImage,false);
-    _img.src = "Images/tokyo.jpg";
+    imatge = new Image();
+    imatge.addEventListener('load',onImage,false);
+    imatge.src = "Images/tokyo.jpg";
 }
 
 function onImage(e){
-    _pieceWidth = Math.floor(_img.width / PUZZLE_DIFFICULTY)
-    _pieceHeight = Math.floor(_img.height / PUZZLE_DIFFICULTY)
-    _puzzleWidth = _pieceWidth * PUZZLE_DIFFICULTY;
-    _puzzleHeight = _pieceHeight * PUZZLE_DIFFICULTY;
+    pecaAmplada = Math.floor(imatge.width / numPeces)
+    pecaAltura = Math.floor(imatge.height / numPeces)
+    puzzleAmplada = pecaAmplada * numPeces;
+    puzzleAltura = pecaAltura * numPeces;
     setCanvas();
     initPuzzle();
 }
 
 function setCanvas(){
-    _canvas = document.getElementById('canvas');
-    _stage = _canvas.getContext('2d');
-    _canvas.width = _puzzleWidth;
-    _canvas.height = _puzzleHeight;
-    _canvas.style.border = "1px solid black";
-    _canvas.style.width = "70%";
-    _canvas.style.height="70%";
+    canvas = document.getElementById('canvas');
+    stage = canvas.getContext('2d');
+    canvas.width = puzzleAmplada;
+    canvas.height = puzzleAltura;
+    canvas.style.border = "1px solid black";
+    canvas.style.width = "70%";
+    canvas.style.height="70%";
 }
 
 function initPuzzle(){
-    _pieces = [];
-    _stage.drawImage(_img, 0, 0, _puzzleWidth, _puzzleHeight, 0, 0, _puzzleWidth, _puzzleHeight);
+    peca = [];
+    stage.drawImage(imatge, 0, 0, puzzleAmplada, puzzleAltura, 0, 0, puzzleAmplada, puzzleAltura);
     buildPieces();
 }
 
@@ -94,36 +90,36 @@ function buildPieces(){
     var piece;
     var xPos = 0;
     var yPos = 0;
-    for(i = 0;i < PUZZLE_DIFFICULTY * PUZZLE_DIFFICULTY;i++){
+    for(i = 0; i < numPeces * numPeces; i++){
         piece = {};
         piece.sx = xPos;
         piece.sy = yPos;
-        _pieces.push(piece);
-        xPos += _pieceWidth;
-        if(xPos >= _puzzleWidth){
+        peca.push(piece);
+        xPos += pecaAmplada;
+        if(xPos >= puzzleAmplada){
             xPos = 0;
-            yPos += _pieceHeight;
+            yPos += pecaAltura;
         }
     }
 }
 
 function shufflePuzzle(){
-    _pieces = shuffleArray(_pieces);
-    _stage.clearRect(0,0,_puzzleWidth,_puzzleHeight);
+    peca = shuffleArray(peca);
+    stage.clearRect(0,0,puzzleAmplada,puzzleAltura);
     var i;
     var piece;
     var xPos = 0;
     var yPos = 0;
-    for(i = 0;i < _pieces.length;i++){
-        piece = _pieces[i];
+    for(i = 0; i < peca.length; i++){
+        piece = peca[i];
         piece.xPos = xPos;
         piece.yPos = yPos;
-        _stage.drawImage(_img, piece.sx, piece.sy, _pieceWidth, _pieceHeight, xPos, yPos, _pieceWidth, _pieceHeight);
-        _stage.strokeRect(xPos, yPos, _pieceWidth,_pieceHeight);
-        xPos += _pieceWidth;
-        if(xPos >= _puzzleWidth){
+        stage.drawImage(imatge, piece.sx, piece.sy, pecaAmplada, pecaAltura, xPos, yPos, pecaAmplada, pecaAltura);
+        stage.strokeRect(xPos, yPos, pecaAmplada,pecaAltura);
+        xPos += pecaAmplada;
+        if(xPos >= puzzleAmplada){
             xPos = 0;
-            yPos += _pieceHeight;
+            yPos += pecaAltura;
         }
     }
 }
