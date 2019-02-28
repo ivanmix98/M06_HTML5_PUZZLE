@@ -8,6 +8,11 @@
     <script type="text/javascript" src="js/geolocalitzacio.js"></script>
 </head>
 <body onload="init();">
+<button onclick="shufflePuzzle()">Click me</button>
+<select id="mySelect" onchange="dimensionChange()">
+    <option value="3x3">3x3
+    <option value="4x4">4x4
+  </select>
 <canvas id="canvas"></canvas>
 <p id="support"></p>
 </body>
