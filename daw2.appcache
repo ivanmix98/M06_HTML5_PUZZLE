@@ -1,0 +1,15 @@
+CACHE MANIFEST
+#fixters offline
+
+CACHE:
+/Images/paris.jpg
+/Images/tokyo.jpg
+/Images/newyork.jpg
+css/puzzle.css
+
+
+NETWORK:
+#fitxers online
+
+
+FALLBACK:

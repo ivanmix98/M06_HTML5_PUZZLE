@@ -12,6 +12,11 @@ var pecaAltura;
 
 var puntuacio = 10000;
 
+var _currentPiece;
+var _currentDropPiece;
+const PUZZLE_HOVER_TINT = '#009900';
+var _mouse;
+
 window.setInterval(function(){
     calculador_puntuacions();
 }, 1000);
@@ -81,6 +86,9 @@ function setCanvas(){
 
 function initPuzzle(){
     peca = [];
+    _mouse = {x:0,y:0};
+    _currentPiece = null;
+    _currentDropPiece = null;
     stage.drawImage(imatge, 0, 0, puzzleAmplada, puzzleAltura, 0, 0, puzzleAmplada, puzzleAltura);
     buildPieces();
 }
@@ -122,9 +130,118 @@ function shufflePuzzle(){
             yPos += pecaAltura;
         }
     }
+    document.onmousedown = onPuzzleClick;
 }
 
 function shuffleArray(o){
     for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
+}
+
+function onPuzzleClick(e){
+    if(e.layerX || e.layerX == 0){
+        _mouse.x = e.layerX - canvas.offsetLeft;
+        _mouse.y = e.layerY - canvas.offsetTop;
+    }
+    else if(e.offsetX || e.offsetX == 0){
+        _mouse.x = e.offsetX - canvas.offsetLeft;
+        _mouse.y = e.offsetY - canvas.offsetTop;
+    }
+    _currentPiece = checkPieceClicked();
+    if(_currentPiece != null){
+        stage.clearRect(_currentPiece.xPos,_currentPiece.yPos,pecaAmplada,pecaAltura);
+        stage.save();
+        stage.globalAlpha = .9;
+        stage.drawImage(imatge, _currentPiece.sx, _currentPiece.sy, pecaAmplada, pecaAltura, _mouse.x - (pecaAmplada / 2), _mouse.y - (pecaAltura / 2), pecaAmplada, pecaAltura);
+        stage.restore();
+        document.onmousemove = updatePuzzle;
+        document.onmouseup = pieceDropped;
+    }
+}
+
+function checkPieceClicked(){
+    var i;
+    var piece;
+    for(i = 0;i < peca.length;i++){
+        piece = peca[i];
+        if(_mouse.x < piece.xPos || _mouse.x > (piece.xPos + pecaAmplada) || _mouse.y < piece.yPos || _mouse.y > (piece.yPos + pecaAltura)){
+            //PIECE NOT HIT
+        }
+        else{
+            return piece;
+        }
+    }
+    return null;
+}
+
+function updatePuzzle(e){
+    _currentDropPiece = null;
+    if(e.layerX || e.layerX == 0){
+        _mouse.x = e.layerX - canvas.offsetLeft;
+        _mouse.y = e.layerY - canvas.offsetTop;
+    }
+    else if(e.offsetX || e.offsetX == 0){
+        _mouse.x = e.offsetX - canvas.offsetLeft;
+        _mouse.y = e.offsetY - canvas.offsetTop;
+    }
+    stage.clearRect(0,0,puzzleAmplada,puzzleAltura);
+    var i;
+    var piece;
+    for(i = 0;i < peca.length;i++){
+        piece = peca[i];
+        if(piece == _currentPiece){
+            continue;
+        }
+        stage.drawImage(imatge, piece.sx, piece.sy, pecaAmplada, pecaAltura, piece.xPos, piece.yPos, pecaAmplada, pecaAltura);
+        stage.strokeRect(piece.xPos, piece.yPos, pecaAmplada,pecaAltura);
+        if(_currentDropPiece == null){
+            if(_mouse.x < piece.xPos || _mouse.x > (piece.xPos + pecaAmplada) || _mouse.y < piece.yPos || _mouse.y > (piece.yPos + pecaAltura)){
+                //NOT OVER
+            }
+            else{
+                _currentDropPiece = piece;
+                stage.save();
+                stage.globalAlpha = .4;
+                stage.fillStyle = PUZZLE_HOVER_TINT;
+                stage.fillRect(_currentDropPiece.xPos,_currentDropPiece.yPos,pecaAmplada, pecaAltura);
+                stage.restore();
+            }
+        }
+    }
+    stage.save();
+    stage.globalAlpha = .6;
+    stage.drawImage(imatge, _currentPiece.sx, _currentPiece.sy, pecaAmplada, pecaAltura, _mouse.x - (pecaAmplada / 2), _mouse.y - (pecaAltura / 2), pecaAmplada, pecaAltura);
+    stage.restore();
+    stage.strokeRect( _mouse.x - (pecaAmplada / 2), _mouse.y - (pecaAltura / 2), pecaAmplada,pecaAltura);
+}
+
+function pieceDropped(e){
+    document.onmousemove = null;
+    document.onmouseup = null;
+    if(_currentDropPiece != null){
+        var tmp = {xPos:_currentPiece.xPos,yPos:_currentPiece.yPos};
+        _currentPiece.xPos = _currentDropPiece.xPos;
+        _currentPiece.yPos = _currentDropPiece.yPos;
+        _currentDropPiece.xPos = tmp.xPos;
+        _currentDropPiece.yPos = tmp.yPos;
+    }
+    resetPuzzleAndCheckWin();
+}
+
+function resetPuzzleAndCheckWin(){
+    stage.clearRect(0,0,puzzleAmplada,puzzleAltura);
+    var gameWin = true;
+    var i;
+    var piece;
+    for(i = 0;i < peca.length;i++){
+        piece = peca[i];
+        stage.drawImage(imatge, piece.sx, piece.sy, pecaAmplada, pecaAltura, piece.xPos, piece.yPos, pecaAmplada, pecaAltura);
+        stage.strokeRect(piece.xPos, piece.yPos, pecaAmplada,pecaAltura);
+        if(piece.xPos != piece.sx || piece.yPos != piece.sy){
+            gameWin = false;
+        }
+    }
+    if(gameWin){
+        setTimeout(gameOver,500);
+    }
 }
