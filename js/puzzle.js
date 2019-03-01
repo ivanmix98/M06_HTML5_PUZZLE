@@ -66,8 +66,8 @@ function init3(){
 }
 
 function onImage(e){
-    pecaAmplada = Math.floor(imatge.width / numPeces)
-    pecaAltura = Math.floor(imatge.height / numPeces)
+    pecaAmplada = Math.floor(imatge.width / numPeces);
+    pecaAltura = Math.floor(imatge.height / numPeces);
     puzzleAmplada = pecaAmplada * numPeces;
     puzzleAltura = pecaAltura * numPeces;
     setCanvas();
@@ -80,8 +80,8 @@ function setCanvas(){
     canvas.width = puzzleAmplada;
     canvas.height = puzzleAltura;
     canvas.style.border = "1px solid black";
-    canvas.style.width = "70%";
-    canvas.style.height="70%";
+    canvas.style.width = "100%";
+    canvas.style.height="100%";
 }
 
 function initPuzzle(){
@@ -160,6 +160,12 @@ function onPuzzleClick(e){
 }
 
 function checkPieceClicked(){
+
+    console.log("mouseX:" + _mouse.x);
+    console.log("mouseY:" + _mouse.y);
+    _mouse.x = _mouse.x*4;
+    _mouse.y = _mouse.y*4;
+
     var i;
     var piece;
     for(i = 0;i < peca.length;i++){
@@ -177,8 +183,8 @@ function checkPieceClicked(){
 function updatePuzzle(e){
     _currentDropPiece = null;
     if(e.layerX || e.layerX == 0){
-        _mouse.x = e.layerX - canvas.offsetLeft;
-        _mouse.y = e.layerY - canvas.offsetTop;
+        _mouse.x = (e.layerX - canvas.offsetLeft)*4;
+        _mouse.y = (e.layerY - canvas.offsetTop)*4;
     }
     else if(e.offsetX || e.offsetX == 0){
         _mouse.x = e.offsetX - canvas.offsetLeft;
@@ -216,6 +222,7 @@ function updatePuzzle(e){
 }
 
 function pieceDropped(e){
+
     document.onmousemove = null;
     document.onmouseup = null;
     if(_currentDropPiece != null){

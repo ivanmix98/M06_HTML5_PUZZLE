@@ -9,12 +9,12 @@
     <script type="text/javascript" src="js/indexedDB.js"></script>
 </head>
 <body onload="init();">
+<canvas id="canvas" width="100%" height="100%"style="width:100%;height:100%"></canvas>
 <button onclick="shufflePuzzle()">Click me</button>
 <select id="mySelect" onchange="dimensionChange()">
     <option value="3x3">3x3
     <option value="4x4">4x4
-  </select>
-<canvas id="canvas"></canvas>
+</select>
 <p id="support"></p>
 
 <a>Puntuació:</a>
@@ -22,3 +22,6 @@
 <button onclick="guardaPuntuacions()">Finalitzar Joc</button>
 </body>
 </html>
+<script>
+    dragElement(document.getElementById("canvas"));
+</script>
